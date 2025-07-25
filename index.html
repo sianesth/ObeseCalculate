@@ -10,13 +10,13 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* สีพื้นหลังตาม Tailwind bg-gray-100 */
+            background-color: #f3f4f6; /* Tailwind's bg-gray-100 */
         }
 
-        /* ตัวจัดเรียงแถวพื้นฐานสำหรับคู่ค่า-คีย์ในแต่ละส่วน */
+        /* Basic label-row for key-value pairs within each section */
         .label-row {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* สองคอลัมน์ */
+            grid-template-columns: 1fr 1fr; /* Two columns */
             gap: 0.25rem 1rem;
             align-items: start;
             padding: 0.5rem 0.75rem;
@@ -36,72 +36,72 @@
             min-width: 150px; /* ให้พื้นที่สำหรับหัวข้อ */
         }
 
-        /* การเยื้องสำหรับ label-title เมื่อเป็นส่วนหนึ่งของส่วนที่สลับเปิด-ปิดได้ */
+        /* Indent for label-title when it's part of a toggled section */
         .section-content-area .label-title {
-            padding-left: 1.5ch; /* เยื้องไป 1.5 ตัวอักษร */
+            padding-left: 1.5ch; /* Indent by 3 characters */
         }
 
-        /* สไตล์สำหรับข้อความผลลัพธ์โดยทั่วไป */
+        /* Styles for the result text in general */
         .label-result {
             font-weight: 600;
             color: #1e3a8a;
             white-space: pre-wrap;
             line-height: 1.35;
             font-size: 0.90rem;
-            text-align: left; /* จัดข้อความภายใน div นี้ชิดซ้ายเสมอเพื่อความสอดคล้อง */
+            text-align: left; /* Always left-align text within this div for consistency */
         }
 
-        /* --- สไตล์สำหรับกรอบหัวข้อหลักของแต่ละส่วน (ชื่อเรื่องและปุ่มสลับ/ผลลัพธ์) --- */
-        .section-header-box { /* นี่คือกรอบหัวข้อหลัก */
+        /* --- Styles for the main section header boxes (title and toggle/result) --- */
+        .section-header-box { /* This is the main title box */
             padding: 0.5rem 0.75rem;
             border-radius: 0.4rem;
             box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-            margin-bottom: 0.5rem; /* ระยะห่างระหว่างกรอบหัวข้อกับเนื้อหา (ถ้ามี) */
+            margin-bottom: 0.5rem; /* Space between header box and content (if any) */
             font-size: 0.9rem;
             font-weight: 600;
             color: #000;
             min-height: 48px;
         }
 
-        /* สไตล์สำหรับหัวข้อที่มีปุ่มสลับ */
+        /* Style for headers WITH a toggle switch */
         .section-header-box.with-toggle {
-            display: grid; /* ใช้ grid สำหรับจัดตำแหน่งชื่อเรื่องและปุ่มสลับ/ผลลัพธ์ */
-            grid-template-columns: 1fr auto; /* สองคอลัมน์: คอลัมน์แรกใช้พื้นที่ที่เหลือ, คอลัมน์ที่สองความกว้างอัตโนมัติ */
+            display: grid; /* Use grid for title and toggle/result alignment */
+            grid-template-columns: 1fr auto; /* Two columns: first takes remaining space, second auto width */
             align-items: center;
         }
 
-        .section-header-box.with-toggle > label:first-child { /* สไตล์สำหรับป้ายชื่อเรื่อง */
+        .section-header-box.with-toggle > label:first-child { /* Style for the title label */
             grid-column: 1;
             text-align: left;
         }
 
-        .section-header-box.with-toggle > label.switch { /* สไตล์สำหรับป้ายชื่อปุ่มสลับ */
+        .section-header-box.with-toggle > label.switch { /* Style for the switch label */
             grid-column: 2;
-            justify-self: end; /* จัดตำแหน่งไปทางขวาของเซลล์ grid */
-            margin-right: 8ch; /* เพิ่มระยะห่างจากด้านขวา โดยใช้หน่วย 'ch' ซึ่งประมาณความกว้างของตัวอักษร '0' */
+            justify-self: end; /* Align to the right end of the grid cell */
+            margin-right: 10ch; /* Add spacing from the right, using 'ch' unit which is roughly the width of '0' character */
         }
 
-        /* สไตล์กรอบหัวข้อเฉพาะสำหรับ Fentanyl และ Neostigmine ให้ทำงานเหมือน label-row */
+        /* Fentanyl and Neostigmine specific header box style to act like label-row */
         .fentanyl-neostigmine-header {
-            display: grid; /* ใช้ grid สำหรับการจัดตำแหน่ง */
-            grid-template-columns: 1fr 1fr; /* สองคอลัมน์เหมือน label-row */
-            gap: 0.25rem 1rem; /* ระยะห่างเหมือน label-row */
+            display: grid; /* Use grid for alignment */
+            grid-template-columns: 1fr 1fr; /* Two columns like label-row */
+            gap: 0.25rem 1rem; /* Gap like label-row */
             align-items: start;
-            padding: 0.5rem 0.75rem; /* ระยะห่างภายในเท่ากัน */
-            font-size: 0.90rem; /* ขนาดตัวอักษรเท่ากัน */
-            line-height: 1.35; /* ความสูงบรรทัดเท่ากัน */
+            padding: 0.5rem 0.75rem; /* Match padding */
+            font-size: 0.90rem; /* Match font size */
+            line-height: 1.35; /* Match line height */
         }
 
-        /* สไตล์เฉพาะสำหรับข้อความภายในหัวข้อ Fentanyl/Neostigmine */
+        /* Specific styles for the text within the Fentanyl/Neostigmine headers */
         .fentanyl-neostigmine-header .label-title {
-            font-weight: 600;
+             font-weight: 600;
         }
 
         .fentanyl-neostigmine-header .label-result {
             font-weight: 600;
         }
 
-        /* สไตล์สำหรับข้อความที่เล็กกว่าใต้ header-result (ตอนนี้เป็นส่วนหนึ่งของ label-result) */
+        /* Style for the smaller text under header-result (now part of label-result) */
         .label-result span {
             font-weight: normal;
             font-size: 0.75em;
@@ -109,7 +109,7 @@
             line-height: 1.1;
         }
 
-        /* --- สไตล์สำหรับพื้นที่เนื้อหา (เนื้อหาที่สลับเปิด-ปิดได้) --- */
+        /* --- Styles for the content area (toggled content) --- */
         .section-content-area {
             display: block;
             padding-left: 0;
@@ -118,25 +118,25 @@
             margin-bottom: 0.5rem;
         }
 
-        /* ปรับระยะห่างของ label-rows ภายในพื้นที่เนื้อหา */
+        /* Adjust internal label-rows spacing within content area */
         .section-content-area .label-row {
             margin-bottom: 0.5rem;
             box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
         }
 
-        /* สีพื้นหลังเฉพาะสำหรับกรอบหัวข้อแต่ละส่วน */
+        /* Specific background colors for each section header box */
         .propofol-header-bg { background-color: #FFF2B2; }
         .fentanyl-header-bg { background-color: #a7d9ed; }
         .musclerelaxant-header-bg { background-color: #FF9BA3; }
-        /* พื้นหลัง Neostigmine สีขาว ตามที่ร้องขอ */
+        /* Neostigmine background white, as requested */
         .neostigmine-header-bg {
-            background-color: #ffffff; /* สีขาว */
+            background-color: #ffffff; /* white */
             border: 2.5px dashed red; /* เส้นประยาวสีแดง */
         }
         .medications-header-bg { background-color: #ccdad1; }
         .extra-header-bg { background-color: #f4f3ee; }
 
-        /* กำหนดสีพื้นหลังสำหรับพื้นที่เนื้อหาตามสีพื้นหลังของหัวข้อแม่ */
+        /* Set background color for content areas based on their parent header's background */
         #Prop.section-content-area .label-row {
             background-color: #fefae0;
         }
@@ -153,7 +153,7 @@
             background-color: #fbfaf8;
         }
 
-        /* --- สไตล์ปุ่มสลับ (Toggle Switch) --- */
+       /* --- Toggle Switch Styles --- */
         .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -178,55 +178,55 @@
             margin-right: 3ch;
         }
 
-        /* การปรับระยะห่างให้กระชับขึ้น */
-        /* ลดระยะห่างด้านบนสำหรับคอนเทนเนอร์ผลลัพธ์หลัก */
+        /* TIGHTER SPACING ADJUSTMENTS */
+        /* Reduce top margin for the main result container itself */
         #mainResultContainer {
-            margin-top: 0.75rem; /* กำหนดระยะห่างระหว่างกล่องข้อมูลนำเข้าและกล่องผลลัพธ์แรก */
-            padding-top: 0; /* ลบ padding จากด้านบนของกล่องผลลัพธ์โดยรวม */
-            padding-bottom: 0; /* ลบ padding จากด้านล่างของกล่องผลลัพธ์โดยรวม */
+            margin-top: 0.75rem; /* This will control the gap between input box and the first result box */
+            padding-top: 0; /* Remove padding from the top of the overall result box */
+            padding-bottom: 0; /* Remove padding from the bottom of the overall result box */
         }
 
-        /* สไตล์สำหรับ baseInfo (BMI/Category) */
+        /* baseInfo (BMI/Category) styles */
         #baseInfo {
-            margin-bottom: 0;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            box-shadow: none; /* ลบเงา */
-            border: none; /* ลบขอบทั้งหมดจาก #baseInfo */
-        }
+           margin-bottom: 0;
+           border-bottom-left-radius: 0;
+           border-bottom-right-radius: 0;
+           box-shadow: none; /* ตรงนี้คุณเพิ่มถูกต้องแล้ว */
+           border: none; /* เพิ่มบรรทัดนี้เพื่อลบขอบทั้งหมดจาก #baseInfo */
+      }
 
-        /* กำหนดให้ label-row ที่อยู่ใน #baseInfo ไม่มีเงาและขอบ */
-        #baseInfo .label-row {
+      /* เพิ่มส่วนนี้ เพื่อกำหนดให้ label-row ที่อยู่ใน #baseInfo ไม่มีเงาและขอบ */
+      #baseInfo .label-row {
             box-shadow: none; /* ลบเงา */
             border: none; /* ลบขอบ */
             background-color: transparent; /* อาจจะต้องเพิ่มเพื่อให้พื้นหลังโปร่งใส หรือใช้ bg-gray-100 จาก Tailwind */
-        }
+       }
 
-        /* คงการกำหนด border radius ด้านบนสำหรับ baseInfo */
+        /* Keep top border radius for baseInfo */
         #baseInfo.rounded-xl {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
 
-        /* ปรับส่วนหัวข้อแรกให้มีระยะห่างด้านบนเล็กน้อยหากจำเป็น และปรับขอบให้เข้ากัน */
-        #resultSections > div:first-child { /* กำหนดเป้าหมายเฉพาะหัวข้อ Propofol */
-            margin-top: 0; /* ไม่มี margin-top ตรงนี้ถ้า baseInfo ไม่มี margin-bottom */
-            border-top-left-radius: 0; /* ทำให้มุมเรียบเมื่อชนกับ baseInfo */
+        /* Adjust the first section header to have a small top margin if needed, and match corner radius */
+        #resultSections > div:first-child { /* This targets the Propofol header specifically */
+            margin-top: 0; /* No margin-top here if baseInfo has no margin-bottom */
+            border-top-left-radius: 0; /* Make corners flat where it meets baseInfo */
             border-top-right-radius: 0;
         }
 
-        /* ตรวจสอบให้แน่ใจว่าแต่ละส่วนผลลัพธ์มี margin-top สำหรับการเว้นระยะระหว่างกัน */
+        /* Ensure result sections themselves have top margin for spacing between them */
         #resultSections > .section-header-box {
-            margin-top: 0.75rem; /* ระยะห่างคงที่ระหว่างส่วนยา */
+            margin-top: 0.75rem; /* Consistent spacing between drug sections */
         }
-        /* ส่วนแรกสุดใน resultSections (Propofol) ไม่ควรมี margin-top */
+        /* The very first section in resultSections (Propofol) should not have a top margin */
         #resultSections > .section-header-box:first-of-type {
             margin-top: 0;
         }
 
-        /* ถ้า baseInfo และ resultSections รวมกันในเชิงภาพ ให้ลบ box-shadow ระหว่างกัน */
+        /* If baseInfo and resultSections are merged visually, remove box-shadow between them */
         #baseInfo + #resultSections > .section-header-box:first-of-type {
-            box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); /* เพิ่มเงาให้กับส่วนยาแรกอีกครั้ง */
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); /* Re-add shadow to the first drug section */
         }
 
     </style>
@@ -248,11 +248,11 @@
 
     <main class="mx-auto px-3 max-w-screen-sm mt-0">
         <div class="bg-white p-4 pl-10 rounded-xl shadow-md space-y-4">
-            <div role="radiogroup" aria-labelledby="gender-label">
-                <label id="gender-label" class="block font-medium mb-1">Gender :</label>
+            <div>
+                <label class="block font-medium mb-1">Gender :</label>
                 <div class="flex space-x-4">
-                    <button type="button" class="bg-white px-4 py-1.5 border rounded mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" id="btnMale" role="radio" aria-checked="false" onclick="selectSex('male')">👦🏻 Male</button>
-                    <button type="button" class="bg-white px-4 py-1.5 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" id="btnFemale" role="radio" aria-checked="false" onclick="selectSex('female')">👧🏻 Female</button>
+                    <button class="bg-white px-4 py-1.5 border rounded mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" id="btnMale" onclick="selectSex('male')">👦🏻 Male</button>
+                    <button class="bg-white px-4 py-1.5 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" id="btnFemale" onclick="selectSex('female')">👧🏻 Female</button>
                 </div>
             </div>
 
@@ -263,12 +263,12 @@
 
             <div class="flex items-center gap-2">
                 <label for="height" class="font-medium w-28">Height (cm):</label>
-                <input type="number" id="height" class="border rounded px-3 py-1.5 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" placeholder="เช่น XXX" autocomplete="off" />
+                <input type="number" id="height" class="border rounded px-3 py-1.5 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" placeholder="XXX" autocomplete="off" />
             </div>
 
             <div class="flex gap-4 ">
-                <button type="button" class="bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 w-fit focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" onclick="calculate()">Calculate</button>
-                <button type="button" class="bg-gray-400 text-white px-3 py-1.5 rounded hover:bg-gray-500 w-fit" onclick="resetForm()">Reset</button>
+                <button class="bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 w-fit focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" onclick="calculate()">Calculate</button>
+                <button class="bg-gray-400 text-white px-3 py-1.5 rounded hover:bg-gray-500 w-fit" onclick="resetForm()">Reset</button>
             </div>
         </div>
 
@@ -333,28 +333,28 @@
     <script>
         let sex = '';
 
-        // รับการอ้างอิงถึงองค์ประกอบ DOM เพียงครั้งเดียว
+        // Get references to DOM elements once
         const btnMale = document.getElementById('btnMale');
         const btnFemale = document.getElementById('btnFemale');
         const weightInput = document.getElementById('weight');
         const heightInput = document.getElementById('height');
 
-        // คอนเทนเนอร์หลักสำหรับผลลัพธ์ทั้งหมด (BMI/Category และส่วนที่ 1-6)
+        // Main container for all results (BMI/Category AND sections 1-6)
         const mainResultContainer = document.getElementById('mainResultContainer');
-        const baseInfoDiv = document.getElementById('baseInfo'); // BMI, Category และข้อความปกติ
-        const resultSectionsDiv = document.getElementById('resultSections'); // คอนเทนเนอร์เฉพาะส่วนที่ 1-6
+        const baseInfoDiv = document.getElementById('baseInfo'); // BMI, Category, and Normal message
+        const resultSectionsDiv = document.getElementById('resultSections'); // Container ONLY for sections 1-6
 
-        // การอ้างอิงสำหรับพื้นที่เนื้อหา (div ที่สลับเปิด-ปิดได้)
+        // References for content areas (the divs that are toggled)
         const propDiv = document.getElementById('Prop');
         const muscDiv = document.getElementById('musc');
         const medsDiv = document.getElementById('meds');
         const extraDiv = document.getElementById('extra');
 
-        // การอ้างอิงถึง div ผลลัพธ์ *ภายใน* หัวข้อที่ไม่สลับเปิด-ปิด
+        // References to the result divs *within* the non-toggled headers
         const fentanylResultDiv = document.getElementById('fentanylResult');
         const neostigmineResultDiv = document.getElementById('neostigmineResult');
 
-        // การอ้างอิงถึงคอนเทนเนอร์หัวข้อ (div ที่มีคลาส section-header-box)
+        // References to the header containers (the section-header-box divs)
         const togglePropHeader = document.getElementById('toggleProp');
         const fentanylHeader = document.getElementById('fentanylHeader');
         const toggleMuscHeader = document.getElementById('toggleMusc');
@@ -362,28 +362,15 @@
         const toggleMedsHeader = document.getElementById('toggleMeds');
         const toggleExtraHeader = document.getElementById('toggleExtra');
 
-        // ฟังก์ชันยูทิลิตี้สำหรับการจัดรูปแบบผลลัพธ์
-        const range = (low, high, unit) => `${low.toFixed(0)} - ${high.toFixed(0)} ${unit}`;
-        const single = (val, unit) => {
-            const fixedVal = parseFloat(val.toFixed(2));
-            return `${fixedVal} ${unit}`;
-        };
 
         function selectSex(val) {
             sex = val;
             btnMale.classList.remove('bg-blue-500', 'text-white');
             btnFemale.classList.remove('bg-blue-500', 'text-white');
-
-            // อัปเดตคุณสมบัติ ARIA สำหรับการเข้าถึง (accessibility)
-            btnMale.setAttribute('aria-checked', 'false');
-            btnFemale.setAttribute('aria-checked', 'false');
-
             if (val === 'male') {
                 btnMale.classList.add('bg-blue-500', 'text-white');
-                btnMale.setAttribute('aria-checked', 'true');
             } else {
                 btnFemale.classList.add('bg-blue-500', 'text-white');
-                btnFemale.setAttribute('aria-checked', 'true');
             }
         }
 
@@ -398,14 +385,10 @@
             btnMale.classList.remove('bg-blue-500', 'text-white');
             btnFemale.classList.remove('bg-blue-500', 'text-white');
 
-            // รีเซ็ตคุณสมบัติ ARIA สำหรับปุ่มเพศ
-            btnMale.setAttribute('aria-checked', 'false');
-            btnFemale.setAttribute('aria-checked', 'false');
+            mainResultContainer.classList.add('hidden'); // Hide the entire main result container
+            resultSectionsDiv.classList.add('hidden'); // Ensure sections 1-6 are hidden
 
-            mainResultContainer.classList.add('hidden'); // ซ่อนคอนเทนเนอร์ผลลัพธ์หลักทั้งหมด
-            resultSectionsDiv.classList.add('hidden'); // ตรวจสอบให้แน่ใจว่าส่วนที่ 1-6 ถูกซ่อน
-
-            // ตรวจสอบให้แน่ใจว่าหัวข้อทั้งหมดปรากฏอีกครั้งเมื่อรีเซ็ต (สำหรับการคำนวณครั้งถัดไป)
+            // Ensure all headers are visible again on reset (for next calculation)
             togglePropHeader.classList.remove('hidden');
             fentanylHeader.classList.remove('hidden');
             toggleMuscHeader.classList.remove('hidden');
@@ -413,23 +396,23 @@
             toggleMedsHeader.classList.remove('hidden');
             toggleExtraHeader.classList.remove('hidden');
 
-            // ซ่อนเนื้อหาส่วนที่สลับเปิด-ปิดได้ทั้งหมดและยกเลิกการเลือกสวิตช์
+            // Hide all toggled sections content and uncheck their switches
             const toggledSections = ['Prop', 'musc', 'meds', 'extra'];
             toggledSections.forEach(id => {
                 const sectionContent = document.getElementById(id);
-                sectionContent.classList.add('hidden'); // ตรวจสอบให้แน่ใจว่าเนื้อหาถูกซ่อน
+                sectionContent.classList.add('hidden'); // Ensure content is hidden
 
                 const toggleContainerId = `toggle${id.charAt(0).toUpperCase() + id.slice(1)}`;
                 const toggleSwitchContainer = document.getElementById(toggleContainerId);
                 if (toggleSwitchContainer) {
                     const toggleSwitch = toggleSwitchContainer.querySelector('input[type="checkbox"]');
                     if (toggleSwitch) {
-                        toggleSwitch.checked = false; // ยกเลิกการเลือกสวิตช์
+                        toggleSwitch.checked = false; // Uncheck the switch
                     }
                 }
             });
 
-            // ล้างเนื้อหาของ div ผลลัพธ์ทั้งหมด รวมถึง Fentanyl และ Neostigmine
+            // Clear contents of all result divs, including Fentanyl and Neostigmine
             baseInfoDiv.innerHTML = '';
             propDiv.innerHTML = '';
             fentanylResultDiv.innerHTML = '';
@@ -448,7 +431,15 @@
             `;
         }
 
-        function calculateBodyMetrics(w, h, sex) {
+        function calculate() {
+            const w = parseFloat(weightInput.value);
+            const h = parseFloat(heightInput.value);
+
+            if (!sex || isNaN(w) || isNaN(h)) {
+                alert('กรุณาเลือกเพศ และกรอกน้ำหนัก-ส่วนสูงให้ครบ');
+                return;
+            }
+
             const bmi = w / ((h / 100) ** 2);
             const cat = bmi < 18.5 ? 'Underweight' :
                         bmi < 25 ? 'Normal' :
@@ -461,133 +452,112 @@
             const lbw = sex === 'male' ? (9270 * w) / (6680 + 216 * bmi) : (9270 * w) / (8780 + 244 * bmi);
             const adjbw = w > ibw ? ibw + 0.4 * (w - ibw) : ibw;
             const pbw = sex === 'male' ? 50 + 0.91 * (h - 152.4) : 45.5 + 0.91 * (h - 152.4);
-            return { bmi, cat, ibw, lbw, adjbw, pbw };
-        }
 
-        function updateBaseInfoDisplay(bmi, cat, isNormal) {
-            baseInfoDiv.classList.remove('rounded-xl');
-            baseInfoDiv.classList.add('rounded-t-xl', 'rounded-b-none');
-            let htmlContent = `${labelRow('BMI', bmi.toFixed(1))}${labelRow('Category', cat)}`;
-            if (isNormal) {
-                htmlContent += `
+            const range = (low, high, unit) => `${low.toFixed(0)} - ${high.toFixed(0)} ${unit}`;
+            const single = (val, unit) => {
+                const fixedVal = parseFloat(val.toFixed(2));
+                return `${fixedVal} ${unit}`;
+            };
+
+            mainResultContainer.classList.remove('hidden'); // Always show the main container
+
+            if (cat === 'Normal') {
+                resultSectionsDiv.classList.add('hidden'); // Hide only sections 1-6
+
+                // Update baseInfoDiv with BMI, Category, and the specific message
+                // Ensure baseInfo has its bottom-left/right radius flattened
+                baseInfoDiv.classList.remove('rounded-xl');
+                baseInfoDiv.classList.add('rounded-t-xl', 'rounded-b-none');
+                baseInfoDiv.innerHTML = `
+                    ${labelRow('BMI', bmi.toFixed(1))}
+                    ${labelRow('Category', cat)}
                     <div class="mt-4 text-center text-red-600 font-semibold text-base">
                         *💉 ใช้การคำนวณยาปกติ 💉*
                     </div>
                 `;
-            }
-            baseInfoDiv.innerHTML = htmlContent;
-        }
+                // Clear any lingering content from previous calculations in the hidden sections
+                propDiv.innerHTML = '';
+                fentanylResultDiv.innerHTML = '';
+                muscDiv.innerHTML = '';
+                neostigmineResultDiv.innerHTML = '';
+                medsDiv.innerHTML = '';
+                extraDiv.innerHTML = '';
 
-        function renderDrugSections(lbw, adjbw, w, ibw, pbw) {
-            // ตรวจสอบให้แน่ใจว่าหัวข้อทั้งหมดปรากฏถ้าไม่ใช่ 'Normal' (ในกรณีที่ผู้ใช้เปลี่ยนจาก Normal)
-            togglePropHeader.classList.remove('hidden');
-            fentanylHeader.classList.remove('hidden');
-            toggleMuscHeader.classList.remove('hidden');
-            neostigmineHeader.classList.remove('hidden');
-            toggleMedsHeader.classList.remove('hidden');
-            toggleExtraHeader.classList.remove('hidden');
-
-            // --- 1. Propofol (เนื้อหาที่สลับเปิด-ปิดได้) ---
-            propDiv.innerHTML = `
-                ${labelRow('Induction', `${range(1.5 * lbw, 2.5 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(1.5–2.5 mg/kg LBW)</span>`)}
-                ${labelRow('Infusion <span class="font-normal">(GA)</span>',
-                                `${range(adjbw * 0.1 * 60, adjbw * 0.2 * 60, 'mg/hr')}<br><span class='font-normal text-[0.75em]'>(100–200 mcg/kg/min AdjBW)</span>`)}
-                ${labelRow('Infusion <span class="font-normal">(Sedation)</span>',
-                                `${range(adjbw * 0.025 * 60, adjbw * 0.1 * 60, 'mg/hr')}<br><span class='font-normal text-[0.75em]'>(25–100 mcg/kg/min AdjBW)</span>`)}
-            `;
-
-            // --- 2. Fentanyl (ผลลัพธ์แสดงโดยตรงในหัวข้อ) ---
-            fentanylResultDiv.innerHTML = `${range(1 * lbw, 2 * lbw, 'mcg')}<br><span class='font-normal text-[0.75em]'>(1‑2 mcg/kg LBW)</span>`;
-
-            // --- 3. Muscle relaxant (เนื้อหาที่สลับเปิด-ปิดได้) ---
-            muscDiv.innerHTML = `
-                ${labelRow('Succinylcholine', `${single(w, 'mg')}<br><span class='font-normal text-[0.75em]'>(1 mg/kg TBW)</span>`)}
-                ${labelRow('Atracurium', `${single(0.6 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.6 mg/kg LBW)</span>`)}
-                ${labelRow('Cisatracurium', `${single(0.15 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.15 mg/kg LBW)</span>`)}
-                ${labelRow('Rocuronium', `${range(0.6 * lbw, 0.9 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.6‑0.9 mg/kg LBW)</span>`)}
-            `;
-
-            // --- 4. Neostigmine (ผลลัพธ์แสดงโดยตรงในหัวข้อ) ---
-            neostigmineResultDiv.innerHTML = `${single(0.05 * adjbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05 mg/kg AdjBW)</span>`;
-
-            // --- 5. Other medications (เนื้อหาที่สลับเปิด-ปิดได้) ---
-            medsDiv.innerHTML = `
-                ${labelRow('Etomidate', `${range(0.2 * lbw, 0.3 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.2‑0.3 mg/kg LBW)</span>`)}
-                ${labelRow('Thiopental', `${range(3 * lbw, 5 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(3‑5 mg/kg LBW)</span>`)}
-                ${labelRow('Ketamine <span class="font-normal">(Infusion)</span>',
-                                `${range(0.5 * lbw, 1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.5‑1 mg/kg LBW)</span>`)}
-                ${labelRow('Midazolam', `${range(0.05 * lbw, 0.1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05‑0.1 mg/kg LBW)</span>`)}
-                ${labelRow('Dexmedetomidine <span class="font-normal">(Loading infusion)</span>',
-                                `${range(0.5 * lbw, 1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.5‑1 mg/kg LBW)</span>`)}
-                ${labelRow('Morphine', `${range(0.05 * lbw, 0.1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05‑0.1 mg/kg LBW)</span>`)}
-                ${labelRow('Sugammadex', `${range(2 * adjbw, 4 * adjbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(2‑4 mg/kg AdjBW)</span>`)}
-                ${labelRow('Lidocaine <span class="font-normal">(IV)</span>',
-                                `${range(1 * lbw, 2 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(1‑2 mg/kg LBW)</span>`)}
-                ${labelRow('Lidocaine <span class="font-normal">(Local)</span>',
-                                `${range(5 * lbw, 7 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(5‑7 mg/kg LBW)</span>`)}
-                ${labelRow('Bupivacaine <span class="font-normal">(Local)</span>',
-                                `${single(3 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(3 mg/kg LBW)</span>`)}
-                ${labelRow('Paracetamol', `${single(15 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(15 mg/kg LBW)</span>`)}
-            `;
-
-            // --- 6. Additional Information (เนื้อหาที่สลับเปิด-ปิดได้) ---
-            extraDiv.innerHTML = `
-                ${labelRow('IBW <span class="font-normal">(Ideal Body Weight)</span>',
-                                `${ibw.toFixed(0)} kg <span class="font-normal text-[0.75em] ">(สำหรับการให้สารน้ำ)</span>`)}
-                ${labelRow('LBW <span class="font-normal">(Lean Body Weight)</span>',
-                                `${lbw.toFixed(0)} kg`)}
-                ${labelRow('AdjBW <span class="font-normal">(Adjusted Body Weight)</span>',
-                                `${adjbw.toFixed(0)} kg`)}
-                ${labelRow('PBW <span class="font-normal">(Predicted Body Weight)</span>',
-                                `${pbw.toFixed(0)} kg <span class="font-normal text-[0.75em]">(สำหรับ ventilator setting)</span>`)}
-            `;
-        }
-
-        function resetDrugSectionsContent() {
-            propDiv.innerHTML = '';
-            fentanylResultDiv.innerHTML = '';
-            muscDiv.innerHTML = '';
-            neostigmineResultDiv.innerHTML = '';
-            medsDiv.innerHTML = '';
-            extraDiv.innerHTML = '';
-
-            // ตรวจสอบให้แน่ใจว่าสวิตช์ถูกยกเลิกการเลือกและพื้นที่เนื้อหาถูกซ่อน
-            const toggledSections = ['Prop', 'musc', 'meds', 'extra'];
-            toggledSections.forEach(id => {
-                const sectionContent = document.getElementById(id);
-                sectionContent.classList.add('hidden');
-                const toggleSwitchContainer = document.getElementById(`toggle${id.charAt(0).toUpperCase() + id.slice(1)}`);
-                if (toggleSwitchContainer) {
-                    const toggleSwitch = toggleSwitchContainer.querySelector('input[type="checkbox"]');
-                    if (toggleSwitch) {
-                        toggleSwitch.checked = false;
-                    }
-                }
-            });
-        }
-
-        function calculate() {
-            const w = parseFloat(weightInput.value);
-            const h = parseFloat(heightInput.value);
-
-            if (!sex || isNaN(w) || isNaN(h)) {
-                alert('กรุณาเลือกเพศ และกรอกน้ำหนัก-ส่วนสูงให้ครบ');
-                return;
-            }
-
-            const { bmi, cat, ibw, lbw, adjbw, pbw } = calculateBodyMetrics(w, h, sex);
-
-            mainResultContainer.classList.remove('hidden'); // แสดงคอนเทนเนอร์หลักเสมอ
-
-            if (cat === 'Normal') {
-                resultSectionsDiv.classList.add('hidden'); // ซ่อนเฉพาะส่วนที่ 1-6
-                updateBaseInfoDisplay(bmi, cat, true); // true สำหรับข้อความปกติ
-                resetDrugSectionsContent(); // ล้างเนื้อหาที่อาจเหลือจากการคำนวณก่อนหน้าในส่วนที่ซ่อน
             } else {
-                resultSectionsDiv.classList.remove('hidden'); // แสดงส่วนที่ 1-6
-                updateBaseInfoDisplay(bmi, cat, false); // false สำหรับไม่แสดงข้อความปกติ
-                renderDrugSections(lbw, adjbw, w, ibw, pbw); // ส่งค่าที่คำนวณได้ทั้งหมดที่จำเป็น
-            }
+                resultSectionsDiv.classList.remove('hidden'); // Show sections 1-6
+
+                // Ensure all headers are visible if not 'Normal' (in case a user switched from Normal)
+                togglePropHeader.classList.remove('hidden');
+                fentanylHeader.classList.remove('hidden');
+                toggleMuscHeader.classList.remove('hidden');
+                neostigmineHeader.classList.remove('hidden');
+                toggleMedsHeader.classList.remove('hidden');
+                toggleExtraHeader.classList.remove('hidden');
+
+                // Re-render baseInfo without the special message for non-Normal categories
+                // Ensure baseInfo has its bottom-left/right radius flattened
+                baseInfoDiv.classList.remove('rounded-xl');
+                baseInfoDiv.classList.add('rounded-t-xl', 'rounded-b-none');
+                baseInfoDiv.innerHTML = `
+                    ${labelRow('BMI', bmi.toFixed(1))}
+                    ${labelRow('Category', cat)}
+                `;
+
+                // --- 1. Propofol (Toggled Content) ---
+                propDiv.innerHTML = `
+                    ${labelRow('Induction', `${range(1.5 * lbw, 2.5 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(1.5–2.5 mg/kg LBW)</span>`)}
+                    ${labelRow('Infusion <span class="font-normal">(GA)</span>',
+                                `${range(adjbw * 0.1 * 60, adjbw * 0.2 * 60, 'mg/hr')}<br><span class='font-normal text-[0.75em]'>(100–200 mcg/kg/min AdjBW)</span>`)}
+                    ${labelRow('Infusion <span class="font-normal">(Sedation)</span>',
+                                `${range(adjbw * 0.025 * 60, adjbw * 0.1 * 60, 'mg/hr')}<br><span class='font-normal text-[0.75em]'>(25–100 mcg/kg/min AdjBW)</span>`)}
+                `;
+
+                // --- 2. Fentanyl (Result displayed directly in header) ---
+                fentanylResultDiv.innerHTML = `${range(1 * lbw, 2 * lbw, 'mcg')}<br><span class='font-normal text-[0.75em]'>(1‑2 mcg/kg LBW)</span>`;
+
+                // --- 3. Muscle relaxant (Toggled Content) ---
+                muscDiv.innerHTML = `
+                    ${labelRow('Succinylcholine', `${single(w, 'mg')}<br><span class='font-normal text-[0.75em]'>(1 mg/kg TBW)</span>`)}
+                    ${labelRow('Atracurium', `${single(0.6 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.6 mg/kg LBW)</span>`)}
+                    ${labelRow('Cisatracurium', `${single(0.15 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.15 mg/kg LBW)</span>`)}
+                    ${labelRow('Rocuronium', `${range(0.6 * lbw, 0.9 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.6‑0.9 mg/kg LBW)</span>`)}
+                `;
+
+                // --- 4. Neostigmine (Result displayed directly in header) ---
+                neostigmineResultDiv.innerHTML = `${single(0.05 * adjbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05 mg/kg AdjBW)</span>`;
+
+                // --- 5. Other medications (Toggled Content) ---
+                medsDiv.innerHTML = `
+                    ${labelRow('Etomidate', `${range(0.2 * lbw, 0.3 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.2‑0.3 mg/kg LBW)</span>`)}
+                    ${labelRow('Thiopental', `${range(3 * lbw, 5 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(3‑5 mg/kg LBW)</span>`)}
+                    ${labelRow('Ketamine <span class="font-normal">(Infusion)</span>',
+                                `${range(0.5 * lbw, 1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.5‑1 mg/kg LBW)</span>`)}
+                    ${labelRow('Midazolam', `${range(0.05 * lbw, 0.1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05‑0.1 mg/kg LBW)</span>`)}
+                    ${labelRow('Dexmedetomidine <span class="font-normal">(Loading infusion)</span>',
+                                `${range(0.5 * lbw, 1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.5‑1 mg/kg LBW)</span>`)}
+                    ${labelRow('Morphine', `${range(0.05 * lbw, 0.1 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(0.05‑0.1 mg/kg LBW)</span>`)}
+                    ${labelRow('Sugammadex', `${range(2 * adjbw, 4 * adjbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(2‑4 mg/kg AdjBW)</span>`)}
+                    ${labelRow('Lidocaine <span class="font-normal">(IV)</span>',
+                                `${range(1 * lbw, 2 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(1‑2 mg/kg LBW)</span>`)}
+                    ${labelRow('Lidocaine <span class="font-normal">(Local)</span>',
+                                `${range(5 * lbw, 7 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(5‑7 mg/kg LBW)</span>`)}
+                    ${labelRow('Bupivacaine <span class="font-normal">(Local)</span>',
+                                `${single(3 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(3 mg/kg LBW)</span>`)}
+                    ${labelRow('Paracetamol', `${single(15 * lbw, 'mg')}<br><span class='font-normal text-[0.75em]'>(15 mg/kg LBW)</span>`)}
+                `;
+
+                // --- 6. Additional Information (Toggled Content) ---
+                extraDiv.innerHTML = `
+                    ${labelRow('IBW <span class="font-normal">(Ideal Body Weight)</span>',
+                                `${ibw.toFixed(0)} kg <span class="font-normal text-[0.75em]">(สำหรับการให้สารน้ำ)</span>`)}
+                    ${labelRow('LBW <span class="font-normal">(Lean Body Weight)</span>',
+                                `${lbw.toFixed(0)} kg`)}
+                    ${labelRow('AdjBW <span class="font-normal">(Adjusted Body Weight)</span>',
+                                `${adjbw.toFixed(0)} kg`)}
+                    ${labelRow('PBW <span class="font-normal">(Predicted Body Weight)</span>',
+                                `${pbw.toFixed(0)} kg <span class="font-normal text-[0.75em]">(สำหรับ ventilator setting)</span>`)}
+                `;
+            } // End of else block for non-'Normal' category
 
             sendToGoogleSheets({
                 sex,
@@ -595,6 +565,7 @@
                 height: h,
                 bmi: bmi.toFixed(1),
                 category: cat,
+                // ... ข้อมูลยาอื่นๆ จะถูกส่งไปทั้งหมด ไม่ว่าจะแสดงผลหรือไม่
                 ibw: ibw.toFixed(0),
                 lbw: lbw.toFixed(0),
                 adjbw: adjbw.toFixed(0),
